@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta content="stuff, to, help, search, engines, not" name="keywords">
+<meta content="What this page is about." name="description">
+<meta content="Display Webcam Stream" name="title">
+<title>NHS</title>
+<style>
+
+body {
+	margin-top: 1%;
+	text-align: center;
+	color: #fff;
+	background-color: #122836;
+}
+
+.booth {
+	width: 400px;
+	background-color: #ccc;
+	border: 10px solid #ddd;
+	margin: 0 auto;
+}
+
+.booth-capture-button {
+	display: block;
+	margin: 10px 0px;
+	padding: 10px 20px;
+	background-color: cornflowerblue;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+}
+
+#canvas {
+	display: none;
+}
+
+#container {
+	margin: 0px auto;
+	width: 300px;
+	height: 690px;
+	border: 10px #005eb8 solid;
+	background-color: #005eb8;
+}
+
+#videoElement {
+	width: 400px;
+	height: 300px;
+	background-color: #666;
+}
+
+#Next, #NHSN, #record, #startRec, #stopRec, #capture {
+	display: block;
+	margin: 5px 0px;
+	padding: 10px 10px;
+	background-color: #fff;
+	color: #005eb8;
+	text-align: center;
+	text-decoration: none;
+}
+
+#NHSONLINE {
+	display: block;
+	margin: 0px 0px;
+	padding: 10px 10px;
+	background-color: #fff;
+	color: #005eb8;
+	text-align: left;
+	text-decoration: none;
+}
+
+#NHS {
+	display: block;
+	margin: 0px 0px;
+	padding: 10px 10px;
+	background-color: #005eb8;
+	color: #fff;
+	text-align: left;
+	text-decoration: none;
+}
+
+#photo {
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+
+.video-wrapper {
+	position: relative;
+}
+
+.video-wrapper:before {
+	content: " ";
+	position: absolute;
+	background: url("img/test.png");
+	width:375px;
+	height:375px;
+	right:1px;
+	bottom:1px;
+	opacity: .6;
+}
+	/* background-color:white; */
+</style>
+</head>
+
+<body>
+	<form id="newPhoto" method="get" action="NewFile.html">
+		<div id="container">
+			<label id="NHSONLINE">NHS Online</label> <br> <span id="NHS">Photo
+				of ID Proof :</span>
+			<div class="video-wrapper">
+			<video autoplay="true" id="video" width="300" height="250">
+
+			</video>
+			</div>
+			<a href="#" id="capture">Take Photo</a>
+			<canvas id="canvas" width="300" height="250"></canvas>
+			<img width="300" height="240" id="photo" alt="photo"
+				src="https://www.intensivecourses.co.uk/wp-content/uploads/2017/01/Mr-Bean-David-Cameron-spoof-driviing-licence.jpg">
+			<a href="#" onclick="saveImg()" id="Next">Next</a>
+		</div>
+	</form>
+	<script>
+		var video = document.querySelector("#video");
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var photo = document.getElementById('photo');
+		
+		navigator.getUserMedia = navigator.getUserMedia
+				|| navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+				|| navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+		if (navigator.getUserMedia) {
+			navigator.getUserMedia({
+				video : true
+			}, handleVideo, videoError);
+		}
+
+		function handleVideo(stream) {
+			video.src = window.URL.createObjectURL(stream);
+		}
+
+		function videoError(e) {
+			console.error();
+		}
+
+		(function() {
+			document.getElementById('capture').addEventListener(
+					'click',
+					function() {
+						context.drawImage(video, 0, 0, 300, 250);
+						window.location.href = canvas.toDataURL("image/png")
+								.replace("image/png", "image/octet-stream");
+						photo.setAttribute('src', canvas.toDataURL("image/png")
+								.replace("image/png", "image/octet-stream"));
+					})
+		})();
+
+		function saveImg() {
+			var image = canvas.toDataURL("image/png").replace("image/png",
+					"image/octet-stream"); // here is the most important part because if you dont replace you will get a DOM 18 exception.
+			//window.location.href = image; // it will save locally
+
+			var form = document.getElementById("newPhoto");
+			form.submit();
+		}
+	</script>
+</body>
+</html>

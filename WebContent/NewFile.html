@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NHS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="WebRTC getUserMedia MediaRecorder API">
+<link type="text/css" rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+body {
+	margin-top: 1%;
+	text-align: center;
+	color: #fff;
+	background-color: #122836;
+}
+
+button {
+	margin: 10px 5px;
+}
+
+li {
+	margin: 10px;
+}
+
+body {
+	width: 90%;
+	max-width: 960px;
+	margin: 0px auto;
+}
+
+#btns {
+	display: none;
+	margin: 0px auto;
+	width: 320px;
+	border: 10px #005eb8 solid;
+	background-color: #005eb8;
+}
+
+h1 {
+	margin: 100px;
+}
+
+#c, #grey, #mediaVideo, #mediaAudio {
+	position: absolute;
+	visibility: hidden;
+}
+
+li video {
+	width: 280px;
+	/* transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg); /* Safari and Chrome */
+	-moz-transform: rotateY(180deg); /* Firefox */
+	*/
+}
+
+#sub, #top, #gUMArea, #display {
+	margin: 0px auto;
+	width: 320px;
+	border: 10px #005eb8 solid;
+	background-color: #005eb8;
+}
+
+a {
+	color: #fff;
+}
+
+#display {
+	height: 240px;
+}
+
+#NHSONLINE {
+	display: block;
+	margin: 0px 0px;
+	padding: 10px 10px;
+	background-color: #fff;
+	color: #005eb8;
+	text-align: left;
+	text-decoration: none;
+}
+
+#NHS {
+	display: block;
+	margin: 0px 0px;
+	padding: 10px 10px;
+	background-color: #005eb8;
+	color: #fff;
+	text-align: left;
+	text-decoration: none;
+}
+
+#Next {
+	display: block;
+	margin: 5px 0px;
+	padding: 10px 10px;
+	background-color: #fff;
+	color: #005eb8;
+	text-align: center;
+	text-decoration: none;
+}
+
+.video-wrapper {
+	position: relative;
+}
+
+.video-wrapper:before {
+	content: " 1 2 3 4 ";
+	position: absolute;
+	width:100px;
+	height:35px;
+	right:105px;
+	bottom:90px;
+}
+</style>
+</head>
+<body>
+	<div id="top">
+		<label id="NHSONLINE">NHS Online</label> <br> <span id="NHS">Take
+			a selfie video :</span>
+
+		<div class="video-wrapper">
+		<video id='v'></video></div>
+		<canvas id='c'></canvas>
+		<button id='grey'>Toggle Greyness</button>
+	</div>
+	<div id='gUMArea'>
+		<input type="radio" name="media" value="video" checked id='mediaVideo'>
+		<input type="radio" name="media" value="audio" id='mediaAudio'>
+		<button class="btn btn-default" id='gUMbtn'>Request Stream</button>
+	</div>
+	<div id='btns'>
+		<button class="btn btn-default" id='start'>Start</button>
+		<button class="btn btn-default" id='stop'>Stop</button>
+	</div>
+	<div id='display'>
+		<ul class="list-unstyled" id='ul'>
+		</ul>
+	</div>
+	<div id="sub">
+		<a href="#" id="Next">Submit</a>
+	</div>
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="js/newscript.js"></script>
+	<script src='js/webcamaccess.js'></script>
+</body>
+</html>
